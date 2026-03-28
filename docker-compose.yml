@@ -97,7 +97,7 @@ services:
       - notification-service
     restart: always
 
-nginx:
+  nginx:
   image: nginx:latest
   container_name: nginx
   ports:
