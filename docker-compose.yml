@@ -18,7 +18,7 @@ services:
     restart: always
 
   user-service:
-    build: ./services/user-service
+    build: ./backend/services/user-service
     container_name: user-service
     ports:
       - "3001:3001"
@@ -32,7 +32,7 @@ services:
     restart: always
 
   notification-service:
-    build: ./services/notification-service
+    build: ./backend/services/notification-service
     container_name: notification-service
     ports:
       - "3006:3006"
@@ -44,7 +44,7 @@ services:
     restart: always
 
   product-service:
-    build: ./services/product-service
+    build: ./backend/services/product-service
     container_name: product-service
     ports:
       - "3002:3002"
@@ -58,7 +58,7 @@ services:
     restart: always
 
   order-service:
-    build: ./services/order-service
+    build: ./backend/services/order-service
     container_name: order-service
     ports:
       - "3003:3003"
@@ -73,7 +73,7 @@ services:
     restart: always
 
   payment-service:
-    build: ./services/payment-service
+    build: ./backend/services/payment-service
     container_name: payment-service
     ports:
       - "3004:3004"
@@ -85,7 +85,7 @@ services:
     restart: always
 
   api-gateway:
-    build: ./services/api-gateway
+    build: ./backend/services/api-gateway
     container_name: api-gateway
     ports:
       - "3000:3000"
@@ -97,5 +97,15 @@ services:
       - notification-service
     restart: always
 
+nginx:
+  image: nginx:latest
+  container_name: nginx
+  ports:
+    - "80:80"
+  volumes:
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  depends_on:
+    - api-gateway
+  restart: always
 volumes:
   mongo_data:
